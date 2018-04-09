@@ -7,6 +7,9 @@ directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW'
 
 @plugin
 class Weather:
+    def string_of_bearing(b):
+        idx = int(b // (360/len(directions)))
+        return directions[idx]
 
     @command(rate_limit_no=2)
     async def weather(self, message):
@@ -34,8 +37,7 @@ class Weather:
         precip = "{:.0f}% chance of {}.".format(current['precipProbability']*100, current.get('precipType', 'rain'))
         temp = "{}°C, feels like {}°C.".format(current['temperature'], current['apparentTemperature'])
         humid = "{:0.0f}% humidity.".format(current['humidity']*100)
-        winds = "{}mph winds {}'ly.".format(current['windSpeed'],
-                                            directions[int((current['windBearing']+11.25) / 22/5)])
+        winds = "{}mph winds {}'ly.".format(current['windSpeed'], string_of_bearing(current['windBearing']))
 
         r = " ".join((place, summary, precip, temp, humid, winds))
         return message.reply(data=w, text=r)
