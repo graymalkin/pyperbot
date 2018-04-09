@@ -2,12 +2,13 @@ from pyperbot.wrappers import plugin, command
 import json
 import async_timeout
 import aiohttp
-directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']
-
+directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
 
 @plugin
 class Weather:
     def string_of_bearing(b):
+        b += (360/len(directions)/2)
+        b = b % 360
         idx = int(b // (360/len(directions)))
         return directions[idx]
 
