@@ -1,4 +1,4 @@
-crontab
+crontab <= 0.21.3
 pyparsing
 python-dateutil
 async-timeout
@@ -6,4 +6,3 @@ aioconsole
 prompt-toolkit
 ptpython
 git+https://github.com/ellxc/seval.git
--r pluginRequirements.txt
